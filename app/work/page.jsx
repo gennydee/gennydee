@@ -18,9 +18,9 @@ export default function Work() {
         decisions, which don&rsquo;t photograph well.
       </Headline>
 
-      <div className="mt-[clamp(24px,5vh,40px)]">
+      <div className="mt-[24px] sm:mt-[40px]">
         {work.map((item) => (
-          <div key={item.name} className="rule-dot py-6">
+          <div key={item.name} className="rule-dot site-grid grid grid-cols-12 gap-x-2 py-6">
             <h2 className="text-[24px] font-normal" style={{ lineHeight: 1.3333, letterSpacing: "-0.012em" }}>
               {item.name}
             </h2>
@@ -28,7 +28,7 @@ export default function Work() {
               {item.role}&nbsp;·&nbsp;{item.years}
             </div>
             <p
-              className="mt-4 max-w-[46ch] text-[18px]"
+              className="col-span-12 mt-4 text-[18px] sm:col-span-8"
               style={{ lineHeight: 1.7778, color: "rgb(var(--ink-rgb) / 0.7)", textWrap: "pretty" }}
             >
               {item.context}
