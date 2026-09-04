@@ -5,6 +5,7 @@ import Label from "@/components/Label";
 import Headline from "@/components/Headline";
 import WorkList from "@/components/WorkList";
 import EssayRow from "@/components/EssayRow";
+import ScrambleLink from "@/components/ScrambleLink";
 import { getEssays } from "@/lib/substack";
 
 export default async function Home() {
@@ -27,27 +28,14 @@ export default async function Home() {
       </div>
 
       <Headline>
-        I build brands, teams, and creative systems for technology companies in
-        their next chapter.
+        Creative leader. I build brands, teams, and creative systems for
+        technology companies in their next chapter. Painter, meditator, and
+        lifelong student of how good things get made.
       </Headline>
 
-      {/* The personal line is an aside, so it sits below the claim rather than
-          inside it — but on the same twelve columns, so the two blocks share a
-          right edge. At 18px that lands on a ~55ch measure, which reads fine.
-          `balance` evens the line lengths, which only looks right because the
-          sentence is long enough to fill them — at half this length it would
-          settle on two short lines well inside the headline's edge. */}
-      <p
-        className="col-span-12 mt-6 text-[18px]"
-        style={{ lineHeight: 1.5556, color: "rgb(var(--ink-rgb) / 0.6)", textWrap: "balance" }}
-      >
-        Creative leader by trade. Painter, meditator, espresso enthusiast, and
-        lifelong student of taste, people, and how good things get made.
-      </p>
-
       <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-[16px]">
-        <a href="https://x.com/gennydee" target="_blank" rel="noopener" className="ud">X ↗</a>
-        <a href="https://linkedin.com/in/genny-dee-9267421" target="_blank" rel="noopener" className="ud">LinkedIn ↗</a>
+        <ScrambleLink href="https://x.com/gennydee" text="X ↗" target="_blank" rel="noopener" className="ud" />
+        <ScrambleLink href="https://linkedin.com/in/genny-dee-9267421" text="LinkedIn ↗" target="_blank" rel="noopener" className="ud" />
       </div>
 
       {/* Places I've worked */}
@@ -69,9 +57,11 @@ export default async function Home() {
             </p>
           ) : null}
         </div>
-        <Link href="/writing" className="u mt-6 inline-block text-[16px]">
-          Read the archive ↗
-        </Link>
+        <ScrambleLink
+          href="/writing"
+          text="Read the archive ↗"
+          className="u mt-6 inline-block text-[16px]"
+        />
       </section>
 
       {/* A little background. The indent is the one deliberate step on the

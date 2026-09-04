@@ -5,8 +5,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * A link whose label scrambles on hover: characters cycle through random
- * glyphs and resolve left to right. The pixel face is monospaced, so the
- * label holds its width the whole way and nothing around it shifts.
+ * glyphs and resolve left to right.
+ *
+ * The label is drawn twice — an invisible copy of the real text to hold the
+ * box open, and the animated copy overlaid on top. Without that, swapping
+ * characters in a proportional face changes the width every frame and the
+ * link jitters, shoving whatever sits next to it. Reserving the final width
+ * up front keeps the effect usable on the sans links too, not just the
+ * monospaced pixel ones.
  *
  * The true text stays in the accessible name; only the visual span animates.
  */
@@ -68,18 +74,32 @@ export default function ScrambleLink({ href, text, className = "", ...rest }) {
     setDisplay(text);
   }, [text]);
 
-  return (
-    <Link
-      href={href}
-      className={className}
-      onMouseEnter={start}
-      onMouseLeave={stop}
-      onFocus={start}
-      onBlur={stop}
-      aria-label={text}
-      {...rest}
-    >
-      <span aria-hidden="true">{display}</span>
+  const label = (
+    <span className="relative inline-block whitespace-nowrap" aria-hidden="true">
+      <span className="invisible">{text}</span>
+      <span className="absolute left-0 top-0">{display}</span>
+    </span>
+  );
+
+  const handlers = {
+    onMouseEnter: start,
+    onMouseLeave: stop,
+    onFocus: start,
+    onBlur: stop,
+    "aria-label": text,
+    className,
+  };
+
+  // next/link is for routes; anything off-site stays a plain anchor.
+  const external = /^(https?:)?\/\//.test(href) || href.startsWith("mailto:");
+
+  return external ? (
+    <a href={href} {...handlers} {...rest}>
+      {label}
+    </a>
+  ) : (
+    <Link href={href} {...handlers} {...rest}>
+      {label}
     </Link>
   );
 }
