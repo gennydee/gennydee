@@ -35,7 +35,7 @@ body {
 /* Geist Pixel is a variable font; ELSH 1 = the Square variant. */
 .pixel {
   font-family: var(--font-pixel);
-  font-variation-settings: "ELSH" 1;
+  font-variation-settings: "ELSH" 3;
   font-size: 13px;
   line-height: 1.2308;
   letter-spacing: 0.04em;
