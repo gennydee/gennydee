@@ -1,5 +1,6 @@
 import Shell from "@/components/Shell";
 import BackLink from "@/components/BackLink";
+import ScrambleLink from "@/components/ScrambleLink";
 import Headline from "@/components/Headline";
 
 export const metadata = {
@@ -63,8 +64,8 @@ export default function About() {
       </p>
 
       <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-[16px]">
-        <a href="https://x.com/gennydee" target="_blank" rel="noopener" className="ud">X ↗</a>
-        <a href="https://linkedin.com/in/genny-dee-9267421" target="_blank" rel="noopener" className="ud">LinkedIn ↗</a>
+        <ScrambleLink href="https://x.com/gennydee" text="X ↗" target="_blank" rel="noopener" className="ud" />
+        <ScrambleLink href="https://linkedin.com/in/genny-dee-9267421" text="LinkedIn ↗" target="_blank" rel="noopener" className="ud" />
       </div>
     </Shell>
   );

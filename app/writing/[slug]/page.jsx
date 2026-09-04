@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Shell from "@/components/Shell";
 import BackLink from "@/components/BackLink";
+import ScrambleLink from "@/components/ScrambleLink";
 import { getEssay, getEssays } from "@/lib/substack";
 import { SUBSTACK } from "@/lib/content";
 
@@ -78,12 +78,14 @@ export default async function Essay({ params }) {
           Occasional notes on creative leadership, taste, hiring, and building great teams.
         </span>
         <span className="flex flex-none items-baseline gap-x-6">
-          <Link href="/writing" className="pixel u">
-            Read the archive
-          </Link>
-          <a href={SUBSTACK.url} target="_blank" rel="noopener" className="pixel u">
-            Subscribe
-          </a>
+          <ScrambleLink href="/writing" text="Read the archive" className="pixel u" />
+          <ScrambleLink
+            href={SUBSTACK.url}
+            text="Subscribe"
+            target="_blank"
+            rel="noopener"
+            className="pixel u"
+          />
         </span>
       </div>
     </Shell>
