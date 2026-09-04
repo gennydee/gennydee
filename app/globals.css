@@ -45,6 +45,7 @@ body {
 a { color: inherit; text-decoration: none; }
 .u  { border-bottom: 1px solid rgb(var(--ink-rgb) / 0.35); padding-bottom: 2px; }
 .ud { border-bottom: 1px dotted rgb(var(--ink-rgb) / 0.5);  padding-bottom: 2px; }
+.u, .ud { transition: color 160ms ease, border-color 160ms ease; }
 .u:hover, .ud:hover {
   color: rgb(var(--ink-rgb) / 0.55);
   border-color: rgb(var(--ink-rgb) / 0.55);
@@ -54,13 +55,72 @@ a { color: inherit; text-decoration: none; }
   outline-offset: 3px;
 }
 
+/* Muted pixel nav links ("More about the work", the back link). These sit
+   dimmed at rest, so hover brings them up to ink rather than down. The label
+   scramble that runs alongside this lives in components/ScrambleLink.jsx. */
+.pixel-link {
+  color: rgb(var(--ink-rgb) / 0.55);
+  transition: color 160ms ease;
+}
+.pixel-link:hover { color: rgb(var(--ink-rgb) / 0.9); }
+/* Essay rows already dim on hover; they just did it instantly. */
+.essay-row { transition: opacity 160ms ease; }
+
+/* Work rows. Hover is a nudge, not an animation: the row steps right by the
+   width of a hairline indent, the dotted rule firms up, and the muted text
+   comes up to full ink. Nothing scales, nothing fades in. */
+.rule-dot-row {
+  border-bottom: 1px dotted rgb(var(--ink-rgb) / 0.32);
+  transition: padding-left 160ms ease, border-color 160ms ease;
+}
+.rule-dot-row .row-desc,
+.rule-dot-row .row-years {
+  color: rgb(var(--ink-rgb) / 0.55);
+  transition: color 160ms ease;
+}
+.rule-dot-row:hover {
+  padding-left: 8px;
+  border-color: rgb(var(--ink-rgb) / 0.55);
+}
+.rule-dot-row:hover .row-desc { color: rgb(var(--ink-rgb) / 0.8); }
+.rule-dot-row:hover .row-years { color: rgb(var(--ink-rgb) / 0.7); }
+
+/* Motion is decoration here, so it is the first thing to go. */
+@media (prefers-reduced-motion: reduce) {
+  .rule-dot-row:hover { padding-left: 0; }
+  .u, .ud, .pixel-link, .essay-row,
+  .rule-dot-row, .rule-dot-row .row-desc, .rule-dot-row .row-years {
+    transition: none;
+  }
+}
+
+/* The site grid: 12 columns, 8px gutters, 664px at rest. Blocks span the
+   full twelve unless they ask for fewer.
+   
+   This has to live in @layer base, not at the top level: unlayered rules beat
+   everything in a layer no matter how weak their specificity, so out here it
+   would silently outrank every col-start / col-span utility Tailwind emits. */
+@layer base {
+  :where(.site-grid) > :where(*) { grid-column: 1 / -1; }
+}
+
 /* Rules. Solid separates writing; dotted separates roles. Intentional. */
 .rule     { border-top: 1px solid rgb(var(--ink-rgb) / 0.14); }
 .rule-b   { border-bottom: 1px solid rgb(var(--ink-rgb) / 0.13); }
 .rule-dot { border-top: 1px dotted rgb(var(--ink-rgb) / 0.32); }
 
-/* Substack's markup, retyped in the site's own scale. */
-.essay :where(p, ul, ol) { margin: 24px 0 0; font-size: 18px; line-height: 1.7778; max-width: 46ch; }
+/* Substack's markup, retyped in the site's own scale and dropped onto the
+   grid: prose runs to column 8, figures and rules take the full twelve. */
+.essay {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 8px;
+}
+.essay > :where(*) { grid-column: 1 / -1; }
+@media (min-width: 640px) {
+  .essay > :where(p, ul, ol, blockquote) { grid-column: 1 / span 8; }
+}
+.essay :where(p, ul, ol) { margin: 24px 0 0; font-size: 18px; line-height: 1.7778; }
 .essay :where(h2, h3) { margin: 40px 0 0; font-size: 24px; line-height: 1.3333; letter-spacing: -0.012em; font-weight: 400; }
 .essay :where(a) { border-bottom: 1px solid rgb(var(--ink-rgb) / 0.35); padding-bottom: 1px; }
 .essay :where(img) { max-width: 100%; height: auto; margin: 32px 0 0; }

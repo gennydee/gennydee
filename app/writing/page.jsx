@@ -21,15 +21,15 @@ export default async function WritingIndex() {
         building teams.
       </Headline>
       <p
-        className="mt-4 max-w-[46ch] text-[16px]"
+        className="col-span-12 mt-4 text-[16px] sm:col-span-8"
         style={{ lineHeight: 1.5, color: "rgb(var(--ink-rgb) / 0.6)" }}
       >
         Published irregularly, edited too much.
       </p>
 
-      <div className="mt-[clamp(32px,5vh,56px)]">
+      <div className="mt-[32px] sm:mt-[56px]">
         {essays.map((essay) => (
-          <Link key={essay.slug} href={`/writing/${essay.slug}`} className="rule block py-6 hover:opacity-70">
+          <Link key={essay.slug} href={`/writing/${essay.slug}`} className="essay-row site-grid rule grid grid-cols-12 gap-x-2 py-6 hover:opacity-70">
             <div className="pixel" style={{ color: "rgb(var(--ink-rgb) / 0.55)", letterSpacing: "0.03em" }}>
               {essay.date}
               {essay.category ? <><br />{essay.category}</> : null}
@@ -38,7 +38,7 @@ export default async function WritingIndex() {
               {essay.title}
             </div>
             <div
-              className="mt-2 max-w-[46ch] text-[16px]"
+              className="col-span-12 mt-2 text-[16px] sm:col-span-8"
               style={{ lineHeight: 1.5, color: "rgb(var(--ink-rgb) / 0.55)", textWrap: "pretty" }}
             >
               {essay.subtitle}

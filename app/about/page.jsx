@@ -8,7 +8,7 @@ export const metadata = {
     "Skateboarding, music, and fashion, then brand, design, and creative leadership.",
 };
 
-const p = "mt-6 max-w-[46ch] text-[18px]";
+const p = "mt-6 col-span-12 text-[18px] sm:col-span-8";
 const ps = { lineHeight: 1.7778, textWrap: "pretty" };
 
 export default function About() {

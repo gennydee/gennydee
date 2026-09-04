@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Shell from "@/components/Shell";
 import BackLink from "@/components/BackLink";
@@ -32,9 +33,9 @@ export default async function Essay({ params }) {
 
   return (
     <Shell>
-      <BackLink href="/writing">← Writing</BackLink>
+      <BackLink />
 
-      <header className="pb-[clamp(24px,5vh,40px)] pt-6">
+      <header className="site-grid grid grid-cols-12 gap-x-2 pb-[24px] sm:pb-[40px] pt-6">
         <div className="pixel" style={{ letterSpacing: "0.05em" }}>
           Essay {number}
           {essay.category ? <>&nbsp;·&nbsp;{essay.category}</> : null}
@@ -51,7 +52,7 @@ export default async function Essay({ params }) {
         </p>
         {essay.context ? (
           <p
-            className="mt-4 max-w-[46ch] text-[16px]"
+            className="col-span-12 mt-4 text-[16px] sm:col-span-8"
             style={{ lineHeight: 1.5, color: "rgb(var(--ink-rgb) / 0.6)", textWrap: "pretty" }}
           >
             {essay.context}
@@ -70,13 +71,20 @@ export default async function Essay({ params }) {
         </p>
       ) : null}
 
-      <div className="mt-[clamp(32px,5vh,48px)] flex flex-wrap items-baseline gap-x-4 gap-y-2">
+      {/* The two links stay a pair, so they wrap together rather than one of
+          them stranding itself on a line of its own. */}
+      <div className="mt-[32px] sm:mt-[48px] flex flex-wrap items-baseline justify-between gap-x-8 gap-y-4">
         <span className="max-w-[42ch] text-[16px]" style={{ lineHeight: 1.5, color: "rgb(var(--ink-rgb) / 0.6)" }}>
           Occasional notes on creative leadership, taste, hiring, and building great teams.
         </span>
-        <a href={SUBSTACK.url} target="_blank" rel="noopener" className="pixel u">
-          Subscribe
-        </a>
+        <span className="flex flex-none items-baseline gap-x-6">
+          <Link href="/writing" className="pixel u">
+            Read the archive
+          </Link>
+          <a href={SUBSTACK.url} target="_blank" rel="noopener" className="pixel u">
+            Subscribe
+          </a>
+        </span>
       </div>
     </Shell>
   );
