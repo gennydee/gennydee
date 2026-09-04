@@ -44,8 +44,8 @@ export default function About() {
         who were building things, and at some point the building became the
         interesting part. Brand, then design, then teams, then the uncomfortable and
         rewarding work of leading them. Hiring people who are better than you at
-        something specific, then getting far enough out of the way that they can
-        prove it.
+        something specific, then giving them enough room to do the thing you
+        hired them for.
       </p>
 
       <p className={p} style={ps}>
