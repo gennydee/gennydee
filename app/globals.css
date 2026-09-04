@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* ── Theme tokens. Every color in the site derives from these three. ───── */
+:root {
+  --bg: #F7F3EC;
+  --ink: #17140F;
+  --ink-rgb: 23 20 15;
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --bg: #14120F;
+  --ink: #F2EDE3;
+  --ink-rgb: 242 237 227;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --font-sans: Geist, system-ui, sans-serif;
+  --font-pixel: "Geist Pixel", ui-monospace, monospace;
+}
+
+html, body { margin: 0; padding: 0; }
+html { background: var(--bg); }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background 220ms ease, color 220ms ease;
+}
+::selection { background: var(--ink); color: var(--bg); }
+
+/* Geist Pixel is a variable font; ELSH 1 = the Square variant. */
+.pixel {
+  font-family: var(--font-pixel);
+  font-variation-settings: "ELSH" 1;
+  font-size: 13px;
+  line-height: 1.2308;
+  letter-spacing: 0.04em;
+}
+
+/* Links: hairline underline at rest, both color and rule lift on hover. */
+a { color: inherit; text-decoration: none; }
+.u  { border-bottom: 1px solid rgb(var(--ink-rgb) / 0.35); padding-bottom: 2px; }
+.ud { border-bottom: 1px dotted rgb(var(--ink-rgb) / 0.5);  padding-bottom: 2px; }
+.u:hover, .ud:hover {
+  color: rgb(var(--ink-rgb) / 0.55);
+  border-color: rgb(var(--ink-rgb) / 0.55);
+}
+:focus-visible {
+  outline: 1px dotted rgb(var(--ink-rgb) / 0.6);
+  outline-offset: 3px;
+}
+
+/* Rules. Solid separates writing; dotted separates roles. Intentional. */
+.rule     { border-top: 1px solid rgb(var(--ink-rgb) / 0.14); }
+.rule-b   { border-bottom: 1px solid rgb(var(--ink-rgb) / 0.13); }
+.rule-dot { border-top: 1px dotted rgb(var(--ink-rgb) / 0.32); }
+
+/* Substack's markup, retyped in the site's own scale. */
+.essay :where(p, ul, ol) { margin: 24px 0 0; font-size: 18px; line-height: 1.7778; max-width: 46ch; }
+.essay :where(h2, h3) { margin: 40px 0 0; font-size: 24px; line-height: 1.3333; letter-spacing: -0.012em; font-weight: 400; }
+.essay :where(a) { border-bottom: 1px solid rgb(var(--ink-rgb) / 0.35); padding-bottom: 1px; }
+.essay :where(img) { max-width: 100%; height: auto; margin: 32px 0 0; }
+.essay :where(blockquote) { margin: 32px 0 0; padding-left: 24px; border-left: 1px solid rgb(var(--ink-rgb) / 0.2); }
+.essay :where(hr) { margin: 40px 0; border: 0; border-top: 1px solid rgb(var(--ink-rgb) / 0.14); }
